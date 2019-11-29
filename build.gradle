@@ -1,0 +1,74 @@
+buildscript {
+    ext.kotlin_version = '1.3.60'
+
+	dependencies {
+		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+	}
+    repositories {
+        mavenCentral()
+		jcenter()
+    }
+}
+
+plugins {
+	id 'fabric-loom' version '0.2.6-SNAPSHOT'
+}
+
+apply plugin: "kotlin"
+apply plugin: "idea"
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+archivesBaseName = project.archives_base_name
+version = project.mod_version
+group = project.maven_group
+
+configurations {
+	compileAndInclude {
+		extendsFrom compile
+		extendsFrom include
+	}
+}
+
+dependencies {
+	// Base dependencies
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	mappings "net.fabricmc:yarn:${project.yarn_mappings}"
+	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+
+	// Fabric API
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+	// Kotlin
+	compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+	include "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+}
+
+processResources {
+	inputs.property "version", project.version
+
+	from(sourceSets.main.resources.srcDirs) {
+		include "fabric.mod.json"
+		expand "version": project.version
+	}
+
+	from(sourceSets.main.resources.srcDirs) {
+		exclude "fabric.mod.json"
+	}
+}
+
+tasks.withType(JavaCompile) {
+	options.encoding = "UTF-8"
+}
+
+jar {
+	from "LICENSE"
+}
+
+repositories {
+    mavenCentral()
+	maven {
+		url "https://dl.bintray.com/kotlin/exposed"
+	}
+}

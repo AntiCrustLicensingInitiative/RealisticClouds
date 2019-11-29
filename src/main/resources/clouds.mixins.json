@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "com.martmists.realisticclouds.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "WorldRendererMixin"
+  ],
+  "server": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
