@@ -19,7 +19,7 @@ object WorldRendererMixinKt {
     fun renderClouds(tickDelta: Float, x: Double, y: Double, z: Double, world: ClientWorld) {
         playerPosition = Vec3d(x, y, z)
         builder = tessellator.bufferBuilder
-        // builder.begin(GL_QUADS, VertexFormats.POSITION_UV_COLOR)
+        builder.begin(GL_QUADS, VertexFormats.POSITION_COLOR)
 
         // xyz is player position
         val r = 2  // radius around player
