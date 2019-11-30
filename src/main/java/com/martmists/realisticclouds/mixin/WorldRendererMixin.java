@@ -25,8 +25,10 @@ class WorldRendererMixin {
     private void renderClouds(float tickDelta, double x, double y, double z, CallbackInfo ci) {
         if (world.dimension.getType() == DimensionType.OVERWORLD) {
             WorldRendererMixinKt.tessellator = Tessellator.getInstance();
+            GlStateManager.disableTexture();
             WorldRendererMixinKt.renderClouds(tickDelta, x, y - 1, z, world);
             WorldRendererMixinKt.tessellator.draw();
+            GlStateManager.enableTexture();
             ci.cancel();
         }
     }
