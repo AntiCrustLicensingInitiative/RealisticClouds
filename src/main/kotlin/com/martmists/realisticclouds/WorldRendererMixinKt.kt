@@ -18,12 +18,10 @@ object WorldRendererMixinKt {
     lateinit var builder: BufferBuilder
     lateinit var playerPosition: Vec3d
 
-    val noiseSampler = PerlinNoiseSampler(Random())
-    var tickDelta: Float = 0f
+    private val noiseSampler = PerlinNoiseSampler(Random())
 
     @JvmStatic
     fun renderClouds(tickDelta: Float, x: Double, y: Double, z: Double, world: ClientWorld) {
-        this.tickDelta = tickDelta
         playerPosition = Vec3d(x, y, z)
         builder = tessellator.bufferBuilder
         builder.begin(GL_QUADS, VertexFormats.POSITION_COLOR)
@@ -43,11 +41,11 @@ object WorldRendererMixinKt {
         val y = world.dimension.cloudHeight  // cloud height
         for (ddx in -1..1) for (ddz in -1..1) {
             val yPos = world.getTop(Heightmap.Type.WORLD_SURFACE, (x+ddx), (z+ddz))
-            if (yPos + 1 >= y || noiseSampler.sample((x+tickDelta).toDouble() / 100, yPos.toDouble(), (z+tickDelta).toDouble() / 100, 5.0, 2.0) > 0) {
+            if (yPos + 1 >= y || noiseSampler.sample((x).toDouble() / 1000, yPos.toDouble(), (z).toDouble() / 1000, 5.0, 2.0) > 0) {
                 return
             }
         }
-        renderCloud((x+tickDelta).toDouble()- playerPosition.x, y.toDouble()- playerPosition.y, (z+tickDelta).toDouble()- playerPosition.z)
+        renderCloud((x).toDouble()- playerPosition.x, y.toDouble()- playerPosition.y, (z).toDouble()- playerPosition.z)
     }
 
     private fun renderCloud(x: Double, y: Double, z: Double) {

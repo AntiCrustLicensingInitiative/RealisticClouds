@@ -26,8 +26,11 @@ class WorldRendererMixin {
         if (world.dimension.getType() == DimensionType.OVERWORLD) {
             WorldRendererMixinKt.tessellator = Tessellator.getInstance();
             GlStateManager.disableTexture();
+            // Blend disabled since clouds are not getting culled
+            // GlStateManager.enableBlend();
             WorldRendererMixinKt.renderClouds(tickDelta, x, y - 1, z, world);
             WorldRendererMixinKt.tessellator.draw();
+            // GlStateManager.disableBlend();
             GlStateManager.enableTexture();
             ci.cancel();
         }
