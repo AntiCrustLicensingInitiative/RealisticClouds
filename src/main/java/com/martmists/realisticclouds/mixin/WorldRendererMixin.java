@@ -5,6 +5,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.texture.TextureManager;
 import net.minecraft.client.util.GlAllocationUtils;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.util.Identifier;
@@ -20,9 +21,9 @@ class WorldRendererMixin {
     @Shadow
     private ClientWorld world;
 
-    @Inject(method = "renderClouds(FDDD)V",
+    @Inject(method = "renderClouds(Lnet/minecraft/client/util/math/MatrixStack;FDDD)V",
             at = @At("HEAD"), cancellable = true)
-    private void renderClouds(float tickDelta, double x, double y, double z, CallbackInfo ci) {
+    private void renderClouds(MatrixStack stack, float tickDelta, double x, double y, double z, CallbackInfo ci) {
         if (world.dimension.getType() == DimensionType.OVERWORLD) {
             WorldRendererMixinKt.tessellator = Tessellator.getInstance();
             GlStateManager.disableTexture();

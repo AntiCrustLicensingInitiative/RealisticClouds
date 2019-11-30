@@ -41,7 +41,7 @@ object WorldRendererMixinKt {
         }
 
         playerPosition = Vec3d(x, y, z)
-        builder = tessellator.bufferBuilder
+        builder = tessellator.buffer
         builder.begin(GL_QUADS, VertexFormats.POSITION_COLOR)
         // xyz is player position
         val r = (clientOptions.viewDistance-1) * 16
@@ -67,7 +67,7 @@ object WorldRendererMixinKt {
         if (world.isChunkLoaded(x / 16, (z+positionOffset) / 16)) {
             var highest = 0
             for (ddx in -2..2) for (ddz in -2..2) {
-                val yPos = world.getTop(Heightmap.Type.WORLD_SURFACE, (x+ddx), (z+ddz))
+                val yPos = world.getTopY(Heightmap.Type.WORLD_SURFACE, (x+ddx), (z+ddz))
                 highest = max(highest, yPos)
                 if (yPos + 5 - abs(ddx) - abs(ddz) >= y) {
                     return

@@ -37,12 +37,9 @@ dependencies {
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-	// Fabric API
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-
 	// Kotlin
-	compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-	include "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+	compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+	include "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 
 processResources {
