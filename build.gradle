@@ -1,13 +1,14 @@
 buildscript {
-    ext.kotlin_version = '1.3.60'
+	ext.kotlin_version = '1.3.61'
+	ext.kotlin_version_old = '1.3.60'
 
 	dependencies {
 		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 	}
-    repositories {
-        mavenCentral()
+	repositories {
+		mavenCentral()
 		jcenter()
-    }
+	}
 }
 
 plugins {
@@ -38,8 +39,7 @@ dependencies {
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	// Kotlin
-	compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-	include "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+	modImplementation "net.fabricmc:fabric-language-kotlin:$kotlin_version_old+build.1"
 }
 
 processResources {
@@ -64,7 +64,8 @@ jar {
 }
 
 repositories {
-    mavenCentral()
+	mavenCentral()
+	jcenter()
 	maven {
 		url "https://dl.bintray.com/kotlin/exposed"
 	}

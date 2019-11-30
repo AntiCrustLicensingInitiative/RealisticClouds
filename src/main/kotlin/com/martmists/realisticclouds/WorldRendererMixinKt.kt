@@ -14,18 +14,14 @@ import net.minecraft.world.biome.Biome
 import net.minecraft.world.biome.DesertBiome
 import org.lwjgl.opengl.GL11.GL_QUADS
 import java.util.*
-import kotlin.math.abs
-import kotlin.math.max
-import kotlin.math.min
-import kotlin.math.roundToInt
-import kotlin.random.Random
+import kotlin.math.*
 
 object WorldRendererMixinKt {
     lateinit var tessellator: Tessellator
     lateinit var builder: BufferBuilder
     lateinit var playerPosition: Vec3d
 
-    private val noiseSampler = PerlinNoiseSampler(java.util.Random())
+    private val noiseSampler = PerlinNoiseSampler(Random())
     private var partialOffset: Float = 0.0f
     private var positionOffset: Int = 0
     private val clientOptions = MinecraftClient.getInstance().options;
@@ -90,7 +86,7 @@ object WorldRendererMixinKt {
         val rx = x + playerPosition.x
         val ry = y + playerPosition.y
         val rz = z + playerPosition.z + partialOffset
-        val d = 1 + Random((rx*ry-ry*rz+rx*.2-rz+rx*ry*rz).roundToInt()).nextDouble(-0.3, 1.0)
+        val d = 1 + Random((rx * ry - ry * rz + rx * .2 - rz + rx * ry * rz).roundToLong()).nextDouble(-0.3, 1.0)
         // Face 1 (x, y)
         builder.vertex(x,y,z).color(colorscale, colorscale, colorscale, transparency).next()
         builder.vertex(x+d,y,z).color(colorscale, colorscale, colorscale, transparency).next()
@@ -123,3 +119,5 @@ object WorldRendererMixinKt {
         builder.vertex(x+d,y+d,z).color(colorscale, colorscale, colorscale, transparency).next()
     }
 }
+
+fun Random.nextDouble(rangeMin : Double, rangeMax : Double) = rangeMin + (rangeMax - rangeMin) * this.nextDouble()
