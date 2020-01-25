@@ -2,24 +2,18 @@
   "schemaVersion": 1,
   "id": "realisticclouds",
   "version": "${version}",
-  "name": "RealisticClouds",
+  "name": "Realistic Clouds",
   "description": "Makes clouds more realistic",
   "authors": [
-    "Martmists"
+    "Martmists",
+    "AntiCrustLicensingInitiative"
   ],
   "contact": {
-    "sources": "https://dilaton.martmists.com/martmists/realisticclouds"
+    "sources": "https://github.com/AntiCrustLicensingInitiative/RealisticClouds"
   },
-  "license": "MIT",
+  "license": "LGPL-3.0-or-later",
   "icon": "assets/essentials/icon.png",
   "environment": "client",
-  "entrypoints": {
-    "client": [
-      {
-        "value": "com.martmists.realisticclouds.RealisticCloudsMod"
-      }
-    ]
-  },
   "mixins": [
     "clouds.mixins.json"
   ],
